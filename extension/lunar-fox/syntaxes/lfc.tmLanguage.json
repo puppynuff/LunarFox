@@ -357,7 +357,7 @@
 				{
 					"comment": "decimal integers and floats",
 					"name": "constant.numeric.decimal.lfc",
-					"match": "\\b\\d[\\d_]*(\\.?)[\\d_]*(?:(E)([+-])([\\d_]+))?(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize|int8|short|int|long|int128|arch|uint8|ushort|uint|ulong|uint128|uarch|float|double)?\\b",
+					"match": "\\b\\d[\\d_]*(\\.?)[\\d_]*(?:(E)([+-])([\\d_]+))?(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\\b",
 					"captures": {
 						"1": {
 							"name": "punctuation.separator.dot.decimal.lfc"
@@ -375,6 +375,10 @@
 							"name": "entity.name.type.numeric.lfc"
 						}
 					}
+				},
+				{
+					"comment": "declaration keywords",
+					"name": ""
 				},
 				{
 					"comment": "hexadecimal integers",
@@ -899,7 +903,7 @@
 			"patterns": [
 				{
 					"comment": "numeric types",
-					"match": "(?<![A-Za-z])(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)\\b",
+					"match": "(?<![A-Za-z])(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize|int8|short|int|long|int128|arch|uint8|ushort|uint|ulong|uint128|uarch|float|double)\\b",
 					"captures": {
 						"1": {
 							"name": "entity.name.type.numeric.lfc"

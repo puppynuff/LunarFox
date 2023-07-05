@@ -56,4 +56,4 @@ Node & Npm
 | .lfc                        | Used for main files |
 | package,json  (Generated)   | Used by node        |
 | tsconfig.json (Generated)   | Used by typescript  |
-| .gitignore    (Generated)   | Used by github      | 
+| .gitignore    (Generated)   | Used by github      |
