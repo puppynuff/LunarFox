@@ -27,7 +27,7 @@ ___
 ***Nothing else so far, check again later!***
 
 ## Future features
-***Check out my [Trello page](https://https://trello.com/b/KRgmYTqb/lunarfox)***
+***Check out my [Trello page](https:///trello.com/b/KRgmYTqb/lunarfox)***
 
 ___
 

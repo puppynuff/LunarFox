@@ -1,6 +1,6 @@
 use std::io::Write;
 use crate::transpiler::keywords;
-
+use crate::transpiler::token_classes;
 
 pub fn transpile(tokens : Vec<String>, filepath : String) {
     //! This is definitely going to be the largest file.
@@ -15,297 +15,76 @@ pub fn transpile(tokens : Vec<String>, filepath : String) {
 
         match token.trim() {
             "int8" => {
-                let mut constant = false;
-        
-                if new_tokens[index - index_change - 1].trim() == "const".to_string() {
-                    constant = true;
-                }
-        
-                let name = &tokens[index + 1];
-                let value = &tokens[index + 3].replace(";", "");
-        
-                let (edited_new_tokens, edited_index_change) = keywords::int::int8(new_tokens, name.to_string(), value.to_string(), index, index_change, constant);
-        
-                new_tokens = edited_new_tokens.clone();
-                index_change = edited_index_change;
-        
+                (new_tokens, index_change) = token_classes::variable_keyword::run_token(new_tokens, tokens.clone(), index, index_change, keywords::int::int8);
                 continue;
             },
             "short" => {
-                let mut constant = false;
-        
-                if new_tokens[index - index_change - 1].trim() == "const".to_string() {
-                    constant = true;
-                }
-        
-                let name = &tokens[index + 1];
-                let value = &tokens[index + 3].replace(";", "");
-        
-                let (edited_new_tokens, edited_index_change) = keywords::int::short(new_tokens, name.to_string(), value.to_string(), index, index_change, constant);
-        
-                new_tokens = edited_new_tokens.clone();
-                index_change = edited_index_change;
+                (new_tokens, index_change) = token_classes::variable_keyword::run_token(new_tokens, tokens.clone(), index, index_change, keywords::int::short);
                 continue;
             },
             "int" => {
-                let mut constant = false;
-        
-                if new_tokens[index - index_change - 1].trim() == "const".to_string() {
-                    constant = true;
-                }
-        
-                let name = &tokens[index + 1];
-                let value = &tokens[index + 3].replace(";", "");
-        
-                let (edited_new_tokens, edited_index_change) = keywords::int::int(new_tokens, name.to_string(), value.to_string(), index, index_change, constant);
-        
-                new_tokens = edited_new_tokens.clone();
-                index_change = edited_index_change;
-        
+                (new_tokens, index_change) = token_classes::variable_keyword::run_token(new_tokens, tokens.clone(), index, index_change, keywords::int::int);
                 continue;
             },
             "long" => {
-                let mut constant = false;
-        
-                if new_tokens[index - index_change - 1].trim() == "const".to_string() {
-                    constant = true;
-                }
-        
-                let name = &tokens[index + 1];
-                let value = &tokens[index + 3].replace(";", "");
-        
-                let (edited_new_tokens, edited_index_change) = keywords::int::long(new_tokens, name.to_string(), value.to_string(), index, index_change, constant);
-        
-                new_tokens = edited_new_tokens.clone();
-                index_change = edited_index_change;
-        
+                (new_tokens, index_change) = token_classes::variable_keyword::run_token(new_tokens, tokens.clone(), index, index_change, keywords::int::long);
                 continue;
             },
             "int128" => {
-                let mut constant = false;
-        
-                if new_tokens[index - index_change - 1].trim() == "const".to_string() {
-                    constant = true;
-                }
-        
-                let name = &tokens[index + 1];
-                let value = &tokens[index + 3].replace(";", "");
-        
-                let (edited_new_tokens, edited_index_change) = keywords::int::int128(new_tokens, name.to_string(), value.to_string(), index, index_change, constant);
-        
-                new_tokens = edited_new_tokens.clone();
-                index_change = edited_index_change;
-        
+                (new_tokens, index_change) = token_classes::variable_keyword::run_token(new_tokens, tokens.clone(), index, index_change, keywords::int::int128);
                 continue;
             },
             "arch" => {
-                let mut constant = false;
-        
-                if new_tokens[index - index_change - 1].trim() == "const".to_string() {
-                    constant = true;
-                }
-        
-                let name = &tokens[index + 1];
-                let value = &tokens[index + 3].replace(";", "");
-        
-                let (edited_new_tokens, edited_index_change) = keywords::int::arch(new_tokens, name.to_string(), value.to_string(), index, index_change, constant);
-        
-                new_tokens = edited_new_tokens.clone();
-                index_change = edited_index_change;
-        
+                (new_tokens, index_change) = token_classes::variable_keyword::run_token(new_tokens, tokens.clone(), index, index_change, keywords::int::arch);
                 continue;
             },
             "uint8" => {
-                let mut constant = false;
-        
-                if new_tokens[index - index_change - 1].trim() == "const".to_string() {
-                    constant = true;
-                }
-        
-                let name = &tokens[index + 1];
-                let value = &tokens[index + 3].replace(";", "");
-        
-                let (edited_new_tokens, edited_index_change) = keywords::uint::uint8(new_tokens, name.to_string(), value.to_string(), index, index_change, constant);
-        
-                new_tokens = edited_new_tokens.clone();
-                index_change = edited_index_change;
+                (new_tokens, index_change) = token_classes::variable_keyword::run_token(new_tokens, tokens.clone(), index, index_change, keywords::uint::uint8);
                 continue;
             },
             "ushort" => {
-                let mut constant = false;
-        
-                if new_tokens[index - index_change - 1].trim() == "const".to_string() {
-                    constant = true;
-                }
-        
-                let name = &tokens[index + 1];
-                let value = &tokens[index + 3].replace(";", "");
-        
-                let (edited_new_tokens, edited_index_change) = keywords::uint::ushort(new_tokens, name.to_string(), value.to_string(), index, index_change, constant);
-        
-                new_tokens = edited_new_tokens.clone();
-                index_change = edited_index_change;
+                (new_tokens, index_change) = token_classes::variable_keyword::run_token(new_tokens, tokens.clone(), index, index_change, keywords::uint::ushort);
                 continue;
             },
             "uint" => {
-                let mut constant = false;
-        
-                if new_tokens[index - index_change - 1].trim() == "const".to_string() {
-                    constant = true;
-                }
-        
-                let name = &tokens[index + 1];
-                let value = &tokens[index + 3].replace(";", "");
-        
-                let (edited_new_tokens, edited_index_change) = keywords::uint::uint(new_tokens, name.to_string(), value.to_string(), index, index_change, constant);
-        
-                new_tokens = edited_new_tokens.clone();
-                index_change = edited_index_change;
+                (new_tokens, index_change) = token_classes::variable_keyword::run_token(new_tokens, tokens.clone(), index, index_change, keywords::uint::uint);
                 continue;
             },
             "ulong" => {
-                let mut constant = false;
-        
-                if new_tokens[index - index_change - 1].trim() == "const".to_string() {
-                    constant = true;
-                }
-        
-                let name = &tokens[index + 1];
-                let value = &tokens[index + 3].replace(";", "");
-        
-                let (edited_new_tokens, edited_index_change) = keywords::uint::ulong(new_tokens, name.to_string(), value.to_string(), index, index_change, constant);
-        
-                new_tokens = edited_new_tokens.clone();
-                index_change = edited_index_change;
+                (new_tokens, index_change) = token_classes::variable_keyword::run_token(new_tokens, tokens.clone(), index, index_change, keywords::uint::ulong);
                 continue;
             },
             "uint128" => {
-                let mut constant = false;
-        
-                if new_tokens[index - index_change - 1].trim() == "const".to_string() {
-                    constant = true;
-                }
-        
-                let name = &tokens[index + 1];
-                let value = &tokens[index + 3].replace(";", "");
-        
-                let (edited_new_tokens, edited_index_change) = keywords::uint::uint128(new_tokens, name.to_string(), value.to_string(), index, index_change, constant);
-        
-                new_tokens = edited_new_tokens.clone();
-                index_change = edited_index_change;
+                (new_tokens, index_change) = token_classes::variable_keyword::run_token(new_tokens, tokens.clone(), index, index_change, keywords::uint::uint128);
                 continue;
             },
             "uarch" => {
-                let mut constant = false;
-        
-                if new_tokens[index - index_change - 1].trim() == "const".to_string() {
-                    constant = true;
-                }
-        
-                let name = &tokens[index + 1];
-                let value = &tokens[index + 3].replace(";", "");
-        
-                let (edited_new_tokens, edited_index_change) = keywords::uint::uarch(new_tokens, name.to_string(), value.to_string(), index, index_change, constant);
-        
-                new_tokens = edited_new_tokens.clone();
-                index_change = edited_index_change;
+                (new_tokens, index_change) = token_classes::variable_keyword::run_token(new_tokens, tokens.clone(), index, index_change, keywords::uint::uarch);
                 continue;
             },
             "float" => {
-                let mut constant = false;
-        
-                if new_tokens[index - index_change - 1].trim() == "const".to_string() {
-                    constant = true;
-                }
-        
-                let name = &tokens[index + 1];
-                let value = &tokens[index + 3].replace(";", "");
-        
-                let (edited_new_tokens, edited_index_change) = keywords::float::float(new_tokens, name.to_string(), value.to_string(), index, index_change, constant);
-        
-                new_tokens = edited_new_tokens.clone();
-                index_change = edited_index_change;
+                (new_tokens, index_change) = token_classes::variable_keyword::run_token(new_tokens, tokens.clone(), index, index_change, keywords::float::float);
                 continue;
             },
             "double" => {
-                let mut constant = false;
-        
-                if new_tokens[index - index_change - 1].trim() == "const".to_string() {
-                    constant = true;
-                }
-        
-                let name = &tokens[index + 1];
-                let value = &tokens[index + 3].replace(";", "");
-        
-                let (edited_new_tokens, edited_index_change) = keywords::float::double(new_tokens, name.to_string(), value.to_string(), index, index_change, constant);
-        
-                new_tokens = edited_new_tokens.clone();
-                index_change = edited_index_change;
+                (new_tokens, index_change) = token_classes::variable_keyword::run_token(new_tokens, tokens.clone(), index, index_change, keywords::float::double);
                 continue;
             },
             "string" => {
-                let mut constant = false;
-        
-                if new_tokens[index - index_change - 1].trim() == "const".to_string() {
-                    constant = true;
-                }
-        
-                let name = &tokens[index + 1];
-                let value = &tokens[index + 3].replace(";", "");
-        
-                let (edited_new_tokens, edited_index_change) = keywords::string::string(new_tokens, name.to_string(), value.to_string(), index, index_change, constant);
-        
-                new_tokens = edited_new_tokens.clone();
-                index_change = edited_index_change;
+                (new_tokens, index_change) = token_classes::variable_keyword::run_token(new_tokens, tokens.clone(), index, index_change, keywords::string::string);
                 continue;
             },
             "str" => {
-                let mut constant = false;
-        
-                if new_tokens[index - index_change - 1].trim() == "const".to_string() {
-                    constant = true;
-                }
-        
-                let name = &tokens[index + 1];
-                let value = &tokens[index + 3].replace(";", "");
-        
-                let (edited_new_tokens, edited_index_change) = keywords::string::str(new_tokens, name.to_string(), value.to_string(), index, index_change, constant);
-        
-                new_tokens = edited_new_tokens.clone();
-                index_change = edited_index_change;
+                (new_tokens, index_change) = token_classes::variable_keyword::run_token(new_tokens, tokens.clone(), index, index_change, keywords::string::str);
                 continue;
             },
             "char" => {
-                let mut constant = false;
-        
-                if new_tokens[index - index_change - 1].trim() == "const".to_string() {
-                    constant = true;
-                }
-        
-                let name = &tokens[index + 1];
-                let value = &tokens[index + 3].replace(";", "");
-        
-                let (edited_new_tokens, edited_index_change) = keywords::string::char(new_tokens, name.to_string(), value.to_string(), index, index_change, constant);
-        
-                new_tokens = edited_new_tokens.clone();
-                index_change = edited_index_change;
+                (new_tokens, index_change) = token_classes::variable_keyword::run_token(new_tokens, tokens.clone(), index, index_change, keywords::string::char);
                 continue;
 
             },
             "bool" => {
-                let mut constant = false;
-        
-                if new_tokens[index - index_change - 1].trim() == "const".to_string() {
-                    constant = true;
-                }
-        
-                let name = &tokens[index + 1];
-                let value = &tokens[index + 3].replace(";", "");
-        
-                let (edited_new_tokens, edited_index_change) = keywords::bool::bool(new_tokens, name.to_string(), value.to_string(), index, index_change, constant);
-        
-                new_tokens = edited_new_tokens.clone();
-                index_change = edited_index_change;
+                (new_tokens, index_change) = token_classes::variable_keyword::run_token(new_tokens, tokens.clone(), index, index_change, keywords::bool::bool);
                 continue;
             },
             "function" => {
