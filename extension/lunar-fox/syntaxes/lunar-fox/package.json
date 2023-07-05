@@ -1,0 +1,25 @@
+{
+  "name": "lunar-fox",
+  "displayName": "Lunar Fox",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.79.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "lfc",
+      "aliases": ["Lunar Fox", "lfc"],
+      "extensions": [".lfc",".lf",".lfr",".lft"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "lfc",
+      "scopeName": "source.lfc",
+      "path": "./syntaxes/lfc.tmLanguage.json"
+    }]
+  }
+}

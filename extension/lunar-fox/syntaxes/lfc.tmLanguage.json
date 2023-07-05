@@ -1,0 +1,1165 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Lunar Fox",
+	"scopeName": "source.lfc",
+	"patterns": [
+		{
+			"comment": "boxed slice literal",
+			"begin": "(<)(\\[)",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.brackets.angle.lfc"
+				},
+				"2": {
+					"name": "punctuation.brackets.square.lfc"
+				}
+			},
+			"end": ">",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.brackets.angle.lfc"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#block-comments"
+				},
+				{
+					"include": "#comments"
+				},
+				{
+					"include": "#gtypes"
+				},
+				{
+					"include": "#lvariables"
+				},
+				{
+					"include": "#lifetimes"
+				},
+				{
+					"include": "#punctuation"
+				},
+				{
+					"include": "#types"
+				}
+			]
+		},
+		{
+			"comment": "macro type metavariables",
+			"name": "meta.macro.metavariable.type.lfc",
+			"match": "(\\$)((crate)|([A-Z][A-Za-z0-9_]*))((:)(block|expr|ident|item|lifetime|literal|meta|path?|stmt|tt|ty|vis))?",
+			"captures": {
+				"1": {
+					"name": "keyword.operator.macro.dollar.lfc"
+				},
+				"3": {
+					"name": "keyword.other.crate.lfc"
+				},
+				"4": {
+					"name": "entity.name.type.metavariable.lfc"
+				},
+				"6": {
+					"name": "keyword.operator.key-value.lfc"
+				},
+				"7": {
+					"name": "variable.other.metavariable.specifier.lfc"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#keywords"
+				}
+			]
+		},
+		{
+			"comment": "macro metavariables",
+			"name": "meta.macro.metavariable.lfc",
+			"match": "(\\$)([a-z][A-Za-z0-9_]*)((:)(block|expr|ident|item|lifetime|literal|meta|path?|stmt|tt|ty|vis))?",
+			"captures": {
+				"1": {
+					"name": "keyword.operator.macro.dollar.lfc"
+				},
+				"2": {
+					"name": "variable.other.metavariable.name.lfc"
+				},
+				"4": {
+					"name": "keyword.operator.key-value.lfc"
+				},
+				"5": {
+					"name": "variable.other.metavariable.specifier.lfc"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#keywords"
+				}
+			]
+		},
+		{
+			"comment": "macro rules",
+			"name": "meta.macro.rules.lfc",
+			"match": "\\b(macro_rules!)\\s+(([a-z0-9_]+)|([A-Z][a-z0-9_]*))\\s+(\\{)",
+			"captures": {
+				"1": {
+					"name": "entity.name.function.macro.rules.lfc"
+				},
+				"3": {
+					"name": "entity.name.function.macro.lfc"
+				},
+				"4": {
+					"name": "entity.name.type.macro.lfc"
+				},
+				"5": {
+					"name": "punctuation.brackets.curly.lfc"
+				}
+			}
+		},
+		{
+			"comment": "attributes",
+			"name": "meta.attribute.lfc",
+			"begin": "(#)(\\!?)(\\[)",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.definition.attribute.lfc"
+				},
+				"2": {
+					"name": "keyword.operator.attribute.inner.lfc"
+				},
+				"3": {
+					"name": "punctuation.brackets.attribute.lfc"
+				}
+			},
+			"end": "\\]",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.brackets.attribute.lfc"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#block-comments"
+				},
+				{
+					"include": "#comments"
+				},
+				{
+					"include": "#keywords"
+				},
+				{
+					"include": "#lifetimes"
+				},
+				{
+					"include": "#punctuation"
+				},
+				{
+					"include": "#strings"
+				},
+				{
+					"include": "#gtypes"
+				},
+				{
+					"include": "#types"
+				}
+			]
+		},
+		{
+			"comment": "modules",
+			"match": "(mod)\\s+((?:r#(?!crate|[Ss]elf|super))?[a-z][A-Za-z0-9_]*)",
+			"captures": {
+				"1": {
+					"name": "storage.type.lfc"
+				},
+				"2": {
+					"name": "entity.name.module.lfc"
+				}
+			}
+		},
+		{
+			"comment": "external crate imports",
+			"name": "meta.import.lfc",
+			"begin": "\\b(extern)\\s+(crate)",
+			"beginCaptures": {
+				"1": {
+					"name": "storage.type.lfc"
+				},
+				"2": {
+					"name": "keyword.other.crate.lfc"
+				}
+			},
+			"end": ";",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.semi.lfc"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#block-comments"
+				},
+				{
+					"include": "#comments"
+				},
+				{
+					"include": "#keywords"
+				},
+				{
+					"include": "#punctuation"
+				}
+			]
+		},
+		{
+			"comment": "use statements",
+			"name": "meta.use.lfc",
+			"begin": "\\b(use)\\s",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.other.lfc"
+				}
+			},
+			"end": ";",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.semi.lfc"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#block-comments"
+				},
+				{
+					"include": "#comments"
+				},
+				{
+					"include": "#keywords"
+				},
+				{
+					"include": "#namespaces"
+				},
+				{
+					"include": "#punctuation"
+				},
+				{
+					"include": "#types"
+				},
+				{
+					"include": "#lvariables"
+				}
+			]
+		},
+		{
+			"include": "#block-comments"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#lvariables"
+		},
+		{
+			"include": "#constants"
+		},
+		{
+			"include": "#gtypes"
+		},
+		{
+			"include": "#functions"
+		},
+		{
+			"include": "#types"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#lifetimes"
+		},
+		{
+			"include": "#macros"
+		},
+		{
+			"include": "#namespaces"
+		},
+		{
+			"include": "#punctuation"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#variables"
+		}
+	],
+	"repository": {
+		"comments": {
+			"patterns": [
+				{
+					"comment": "documentation comments",
+					"name": "comment.line.documentation.lfc",
+					"match": "^\\s*///.*"
+				},
+				{
+					"comment": "line comments",
+					"name": "comment.line.double-slash.lfc",
+					"match": "\\s*//.*"
+				}
+			]
+		},
+		"block-comments": {
+			"patterns": [
+				{
+					"comment": "empty block comments",
+					"name": "comment.block.lfc",
+					"match": "/\\*\\*/"
+				},
+				{
+					"comment": "block documentation comments",
+					"name": "comment.block.documentation.lfc",
+					"begin": "/\\*\\*",
+					"end": "\\*/",
+					"patterns": [
+						{
+							"include": "#block-comments"
+						}
+					]
+				},
+				{
+					"comment": "block comments",
+					"name": "comment.block.lfc",
+					"begin": "/\\*(?!\\*)",
+					"end": "\\*/",
+					"patterns": [
+						{
+							"include": "#block-comments"
+						}
+					]
+				}
+			]
+		},
+		"constants": {
+			"patterns": [
+				{
+					"comment": "ALL CAPS constants",
+					"name": "constant.other.caps.lfc",
+					"match": "\\b[A-Z]{2}[A-Z0-9_]*\\b"
+				},
+				{
+					"comment": "constant declarations",
+					"match": "\\b(const)\\s+([A-Z][A-Za-z0-9_]*)\\b",
+					"captures": {
+						"1": {
+							"name": "storage.type.lfc"
+						},
+						"2": {
+							"name": "constant.other.caps.lfc"
+						}
+					}
+				},
+				{
+					"comment": "decimal integers and floats",
+					"name": "constant.numeric.decimal.lfc",
+					"match": "\\b\\d[\\d_]*(\\.?)[\\d_]*(?:(E)([+-])([\\d_]+))?(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize|int8|short|int|long|int128|arch|uint8|ushort|uint|ulong|uint128|uarch|float|double)?\\b",
+					"captures": {
+						"1": {
+							"name": "punctuation.separator.dot.decimal.lfc"
+						},
+						"2": {
+							"name": "keyword.operator.exponent.lfc"
+						},
+						"3": {
+							"name": "keyword.operator.exponent.sign.lfc"
+						},
+						"4": {
+							"name": "constant.numeric.decimal.exponent.mantissa.lfc"
+						},
+						"5": {
+							"name": "entity.name.type.numeric.lfc"
+						}
+					}
+				},
+				{
+					"comment": "hexadecimal integers",
+					"name": "constant.numeric.hex.lfc",
+					"match": "\\b0x[\\da-fA-F_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\\b",
+					"captures": {
+						"1": {
+							"name": "entity.name.type.numeric.lfc"
+						}
+					}
+				},
+				{
+					"comment": "octal integers",
+					"name": "constant.numeric.oct.lfc",
+					"match": "\\b0o[0-7_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\\b",
+					"captures": {
+						"1": {
+							"name": "entity.name.type.numeric.lfc"
+						}
+					}
+				},
+				{
+					"comment": "binary integers",
+					"name": "constant.numeric.bin.lfc",
+					"match": "\\b0b[01_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\\b",
+					"captures": {
+						"1": {
+							"name": "entity.name.type.numeric.lfc"
+						}
+					}
+				},
+				{
+					"comment": "booleans",
+					"name": "constant.language.bool.lfc",
+					"match": "\\b(true|false)\\b"
+				}
+			]
+		},
+		"escapes": {
+			"comment": "escapes: ASCII, byte, Unicode, quote, regex",
+			"name": "constant.character.escape.lfc",
+			"match": "(\\\\)(?:(?:(x[0-7][0-7a-fA-F])|(u(\\{)[\\da-fA-F]{4,6}(\\}))|.))",
+			"captures": {
+				"1": {
+					"name": "constant.character.escape.backslash.lfc"
+				},
+				"2": {
+					"name": "constant.character.escape.bit.lfc"
+				},
+				"3": {
+					"name": "constant.character.escape.unicode.lfc"
+				},
+				"4": {
+					"name": "constant.character.escape.unicode.punctuation.lfc"
+				},
+				"5": {
+					"name": "constant.character.escape.unicode.punctuation.lfc"
+				}
+			}
+		},
+		"functions": {
+			"patterns": [
+				{
+					"comment": "pub as a function",
+					"match": "\\b(pub)(\\()",
+					"captures": {
+						"1": {
+							"name": "keyword.other.lfc"
+						},
+						"2": {
+							"name": "punctuation.brackets.round.lfc"
+						}
+					}
+				},
+				{
+					"comment": "function definition",
+					"name": "meta.function.definition.lfc",
+					"begin": "\\b(fn|function)\\s+((?:r#(?!crate|[Ss]elf|super))?[A-Za-z0-9_]+)((\\()|(<))",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.other.fn.lfc"
+						},
+						"2": {
+							"name": "entity.name.function.lfc"
+						},
+						"4": {
+							"name": "punctuation.brackets.round.lfc"
+						},
+						"5": {
+							"name": "punctuation.brackets.angle.lfc"
+						}
+					},
+					"end": "\\{|;",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.brackets.curly.lfc"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#block-comments"
+						},
+						{
+							"include": "#comments"
+						},
+						{
+							"include": "#keywords"
+						},
+						{
+							"include": "#lvariables"
+						},
+						{
+							"include": "#constants"
+						},
+						{
+							"include": "#gtypes"
+						},
+						{
+							"include": "#functions"
+						},
+						{
+							"include": "#lifetimes"
+						},
+						{
+							"include": "#macros"
+						},
+						{
+							"include": "#namespaces"
+						},
+						{
+							"include": "#punctuation"
+						},
+						{
+							"include": "#strings"
+						},
+						{
+							"include": "#types"
+						},
+						{
+							"include": "#variables"
+						}
+					]
+				},
+				{
+					"comment": "function/method calls, chaining",
+					"name": "meta.function.call.lfc",
+					"begin": "((?:r#(?!crate|[Ss]elf|super))?[A-Za-z0-9_]+)(\\()",
+					"beginCaptures": {
+						"1": {
+							"name": "entity.name.function.lfc"
+						},
+						"2": {
+							"name": "punctuation.brackets.round.lfc"
+						}
+					},
+					"end": "\\)",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.brackets.round.lfc"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#block-comments"
+						},
+						{
+							"include": "#comments"
+						},
+						{
+							"include": "#keywords"
+						},
+						{
+							"include": "#lvariables"
+						},
+						{
+							"include": "#constants"
+						},
+						{
+							"include": "#gtypes"
+						},
+						{
+							"include": "#functions"
+						},
+						{
+							"include": "#lifetimes"
+						},
+						{
+							"include": "#macros"
+						},
+						{
+							"include": "#namespaces"
+						},
+						{
+							"include": "#punctuation"
+						},
+						{
+							"include": "#strings"
+						},
+						{
+							"include": "#types"
+						},
+						{
+							"include": "#variables"
+						}
+					]
+				},
+				{
+					"comment": "function/method calls with turbofish",
+					"name": "meta.function.call.lfc",
+					"begin": "((?:r#(?!crate|[Ss]elf|super))?[A-Za-z0-9_]+)(?=::<.*>\\()",
+					"beginCaptures": {
+						"1": {
+							"name": "entity.name.function.lfc"
+						}
+					},
+					"end": "\\)",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.brackets.round.lfc"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#block-comments"
+						},
+						{
+							"include": "#comments"
+						},
+						{
+							"include": "#keywords"
+						},
+						{
+							"include": "#lvariables"
+						},
+						{
+							"include": "#constants"
+						},
+						{
+							"include": "#gtypes"
+						},
+						{
+							"include": "#functions"
+						},
+						{
+							"include": "#lifetimes"
+						},
+						{
+							"include": "#macros"
+						},
+						{
+							"include": "#namespaces"
+						},
+						{
+							"include": "#punctuation"
+						},
+						{
+							"include": "#strings"
+						},
+						{
+							"include": "#types"
+						},
+						{
+							"include": "#variables"
+						}
+					]
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"comment": "control flow keywords",
+					"name": "keyword.control.lfc",
+					"match": "\\b(await|break|continue|do|else|for|if|loop|match|return|try|while|yield)\\b"
+				},
+				{
+					"comment": "storage keywords",
+					"name": "keyword.other.lfc storage.type.lfc",
+					"match": "\\b(extern|let|macro|mod)\\b"
+				},
+				{
+					"comment": "const keyword",
+					"name": "storage.modifier.lfc",
+					"match": "\\b(const)\\b"
+				},
+				{
+					"comment": "type keyword",
+					"name": "keyword.declaration.type.lfc storage.type.lfc",
+					"match": "\\b(type)\\b"
+				},
+				{
+					"comment": "enum keyword",
+					"name": "keyword.declaration.enum.lfc storage.type.lfc",
+					"match": "\\b(enum)\\b"
+				},
+				{
+					"comment": "trait keyword",
+					"name": "keyword.declaration.trait.lfc storage.type.lfc",
+					"match": "\\b(trait)\\b"
+				},
+				{
+					"comment": "struct keyword",
+					"name": "keyword.declaration.struct.lfc storage.type.lfc",
+					"match": "\\b(struct)\\b"
+				},
+				{
+					"comment": "storage modifiers",
+					"name": "storage.modifier.lfc",
+					"match": "\\b(abstract|static)\\b"
+				},
+				{
+					"comment": "other keywords",
+					"name": "keyword.other.lfc",
+					"match": "\\b(as|async|become|box|dyn|move|final|impl|in|override|priv|pub|ref|typeof|union|unsafe|unsized|use|virtual|where)\\b"
+				},
+				{
+					"comment": "fn",
+					"name": "keyword.other.fn.lfc",
+					"match": "\\b(fn|function)\\b"
+				},
+				{
+					"comment": "crate",
+					"name": "keyword.other.crate.lfc",
+					"match": "\\bcrate\\b"
+				},
+				{
+					"comment": "mut",
+					"name": "storage.modifier.mut.lfc",
+					"match": "\\bmut\\b"
+				},
+				{
+					"comment": "logical operators",
+					"name": "keyword.operator.logical.lfc",
+					"match": "(\\^|\\||\\|\\||&&|<<|>>|!)(?!=)"
+				},
+				{
+					"comment": "logical AND, borrow references",
+					"name": "keyword.operator.borrow.and.lfc",
+					"match": "&(?![&=])"
+				},
+				{
+					"comment": "assignment operators",
+					"name": "keyword.operator.assignment.lfc",
+					"match": "(\\+=|-=|\\*=|/=|%=|\\^=|&=|\\|=|<<=|>>=)"
+				},
+				{
+					"comment": "single equal",
+					"name": "keyword.operator.assignment.equal.lfc",
+					"match": "(?<![<>])=(?!=|>)"
+				},
+				{
+					"comment": "comparison operators",
+					"name": "keyword.operator.comparison.lfc",
+					"match": "(=(=)?(?!>)|!=|<=|(?<!=)>=)"
+				},
+				{
+					"comment": "math operators",
+					"name": "keyword.operator.math.lfc",
+					"match": "(([+%]|(\\*(?!\\w)))(?!=))|(-(?!>))|(/(?!/))"
+				},
+				{
+					"comment": "less than, greater than (special case)",
+					"match": "(?:\\b|(?:(\\))|(\\])|(\\})))[ \\t]+([<>])[ \\t]+(?:\\b|(?:(\\()|(\\[)|(\\{)))",
+					"captures": {
+						"1": {
+							"name": "punctuation.brackets.round.lfc"
+						},
+						"2": {
+							"name": "punctuation.brackets.square.lfc"
+						},
+						"3": {
+							"name": "punctuation.brackets.curly.lfc"
+						},
+						"4": {
+							"name": "keyword.operator.comparison.lfc"
+						},
+						"5": {
+							"name": "punctuation.brackets.round.lfc"
+						},
+						"6": {
+							"name": "punctuation.brackets.square.lfc"
+						},
+						"7": {
+							"name": "punctuation.brackets.curly.lfc"
+						}
+					}
+				},
+				{
+					"comment": "namespace operator",
+					"name": "keyword.operator.namespace.lfc",
+					"match": "::"
+				},
+				{
+					"comment": "dereference asterisk",
+					"match": "(\\*)(?=\\w+)",
+					"captures": {
+						"1": {
+							"name": "keyword.operator.dereference.lfc"
+						}
+					}
+				},
+				{
+					"comment": "subpattern binding",
+					"name": "keyword.operator.subpattern.lfc",
+					"match": "@"
+				},
+				{
+					"comment": "dot access",
+					"name": "keyword.operator.access.dot.lfc",
+					"match": "\\.(?!\\.)"
+				},
+				{
+					"comment": "ranges, range patterns",
+					"name": "keyword.operator.range.lfc",
+					"match": "\\.{2}(=|\\.)?"
+				},
+				{
+					"comment": "colon",
+					"name": "keyword.operator.key-value.lfc",
+					"match": ":(?!:)"
+				},
+				{
+					"comment": "dashrocket, skinny arrow",
+					"name": "keyword.operator.arrow.skinny.lfc",
+					"match": "->"
+				},
+				{
+					"comment": "hashrocket, fat arrow",
+					"name": "keyword.operator.arrow.fat.lfc",
+					"match": "=>"
+				},
+				{
+					"comment": "dollar macros",
+					"name": "keyword.operator.macro.dollar.lfc",
+					"match": "\\$"
+				},
+				{
+					"comment": "question mark operator, questionably sized, macro kleene matcher",
+					"name": "keyword.operator.question.lfc",
+					"match": "\\?"
+				}
+			]
+		},
+		"interpolations": {
+			"comment": "curly brace interpolations",
+			"name": "meta.interpolation.lfc",
+			"match": "({)[^\"{}]*(})",
+			"captures": {
+				"1": {
+					"name": "punctuation.definition.interpolation.lfc"
+				},
+				"2": {
+					"name": "punctuation.definition.interpolation.lfc"
+				}
+			}
+		},
+		"lifetimes": {
+			"patterns": [
+				{
+					"comment": "named lifetime parameters",
+					"match": "(['])([a-zA-Z_][0-9a-zA-Z_]*)(?!['])\\b",
+					"captures": {
+						"1": {
+							"name": "punctuation.definition.lifetime.lfc"
+						},
+						"2": {
+							"name": "entity.name.type.lifetime.lfc"
+						}
+					}
+				},
+				{
+					"comment": "borrowing references to named lifetimes",
+					"match": "(\\&)(['])([a-zA-Z_][0-9a-zA-Z_]*)(?!['])\\b",
+					"captures": {
+						"1": {
+							"name": "keyword.operator.borrow.lfc"
+						},
+						"2": {
+							"name": "punctuation.definition.lifetime.lfc"
+						},
+						"3": {
+							"name": "entity.name.type.lifetime.lfc"
+						}
+					}
+				}
+			]
+		},
+		"macros": {
+			"patterns": [
+				{
+					"comment": "macros",
+					"name": "meta.macro.lfc",
+					"match": "(([a-z_][A-Za-z0-9_]*!)|([A-Z_][A-Za-z0-9_]*!))",
+					"captures": {
+						"2": {
+							"name": "entity.name.function.macro.lfc"
+						},
+						"3": {
+							"name": "entity.name.type.macro.lfc"
+						}
+					}
+				}
+			]
+		},
+		"namespaces": {
+			"patterns": [
+				{
+					"comment": "namespace (non-type, non-function path segment)",
+					"match": "(?<![A-Za-z0-9_])([a-z0-9_]+)((?<!super|self)::)",
+					"captures": {
+						"1": {
+							"name": "entity.name.namespace.lfc"
+						},
+						"2": {
+							"name": "keyword.operator.namespace.lfc"
+						}
+					}
+				}
+			]
+		},
+		"types": {
+			"patterns": [
+				{
+					"comment": "numeric types",
+					"match": "(?<![A-Za-z])(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)\\b",
+					"captures": {
+						"1": {
+							"name": "entity.name.type.numeric.lfc"
+						}
+					}
+				},
+				{
+					"comment": "parameterized types",
+					"begin": "\\b([A-Z][A-Za-z0-9]*)(<)",
+					"beginCaptures": {
+						"1": {
+							"name": "entity.name.type.lfc"
+						},
+						"2": {
+							"name": "punctuation.brackets.angle.lfc"
+						}
+					},
+					"end": ">",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.brackets.angle.lfc"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#block-comments"
+						},
+						{
+							"include": "#comments"
+						},
+						{
+							"include": "#keywords"
+						},
+						{
+							"include": "#lvariables"
+						},
+						{
+							"include": "#lifetimes"
+						},
+						{
+							"include": "#punctuation"
+						},
+						{
+							"include": "#types"
+						},
+						{
+							"include": "#variables"
+						}
+					]
+				},
+				{
+					"comment": "primitive types",
+					"name": "entity.name.type.primitive.lfc",
+					"match": "\\b(bool|char|str|string)\\b"
+				},
+				{
+					"comment": "trait declarations",
+					"match": "\\b(trait)\\s+([A-Z][A-Za-z0-9]*)\\b",
+					"captures": {
+						"1": {
+							"name": "keyword.declaration.trait.lfc storage.type.lfc"
+						},
+						"2": {
+							"name": "entity.name.type.trait.lfc"
+						}
+					}
+				},
+				{
+					"comment": "struct declarations",
+					"match": "\\b(struct)\\s+([A-Z][A-Za-z0-9]*)\\b",
+					"captures": {
+						"1": {
+							"name": "keyword.declaration.struct.lfc storage.type.lfc"
+						},
+						"2": {
+							"name": "entity.name.type.struct.lfc"
+						}
+					}
+				},
+				{
+					"comment": "enum declarations",
+					"match": "\\b(enum)\\s+([A-Z][A-Za-z0-9_]*)\\b",
+					"captures": {
+						"1": {
+							"name": "keyword.declaration.enum.lfc storage.type.lfc"
+						},
+						"2": {
+							"name": "entity.name.type.enum.lfc"
+						}
+					}
+				},
+				{
+					"comment": "type declarations",
+					"match": "\\b(type)\\s+([A-Z][A-Za-z0-9_]*)\\b",
+					"captures": {
+						"1": {
+							"name": "keyword.declaration.type.lfc storage.type.lfc"
+						},
+						"2": {
+							"name": "entity.name.type.declaration.lfc"
+						}
+					}
+				},
+				{
+					"comment": "types",
+					"name": "entity.name.type.lfc",
+					"match": "\\b[A-Z][A-Za-z0-9]*\\b(?!!)"
+				}
+			]
+		},
+		"gtypes": {
+			"patterns": [
+				{
+					"comment": "option types",
+					"name": "entity.name.type.option.lfc",
+					"match": "\\b(Some|None)\\b"
+				},
+				{
+					"comment": "result types",
+					"name": "entity.name.type.result.lfc",
+					"match": "\\b(Ok|Err)\\b"
+				}
+			]
+		},
+		"punctuation": {
+			"patterns": [
+				{
+					"comment": "comma",
+					"name": "punctuation.comma.lfc",
+					"match": ","
+				},
+				{
+					"comment": "curly braces",
+					"name": "punctuation.brackets.curly.lfc",
+					"match": "[{}]"
+				},
+				{
+					"comment": "parentheses, round brackets",
+					"name": "punctuation.brackets.round.lfc",
+					"match": "[()]"
+				},
+				{
+					"comment": "semicolon",
+					"name": "punctuation.semi.lfc",
+					"match": ";"
+				},
+				{
+					"comment": "square brackets",
+					"name": "punctuation.brackets.square.lfc",
+					"match": "[\\[\\]]"
+				},
+				{
+					"comment": "angle brackets",
+					"name": "punctuation.brackets.angle.lfc",
+					"match": "(?<!=)[<>]"
+				}
+			]
+		},
+		"strings": {
+			"patterns": [
+				{
+					"comment": "double-quoted strings and byte strings",
+					"name": "string.quoted.double.lfc",
+					"begin": "(b?)(\")",
+					"beginCaptures": {
+						"1": {
+							"name": "string.quoted.byte.raw.lfc"
+						},
+						"2": {
+							"name": "punctuation.definition.string.lfc"
+						}
+					},
+					"end": "\"",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.lfc"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#escapes"
+						},
+						{
+							"include": "#interpolations"
+						}
+					]
+				},
+				{
+					"comment": "double-quoted raw strings and raw byte strings",
+					"name": "string.quoted.double.lfc",
+					"begin": "(b?r)(#*)(\")",
+					"beginCaptures": {
+						"1": {
+							"name": "string.quoted.byte.raw.lfc"
+						},
+						"2": {
+							"name": "punctuation.definition.string.raw.lfc"
+						},
+						"3": {
+							"name": "punctuation.definition.string.lfc"
+						}
+					},
+					"end": "(\")(\\2)",
+					"endCaptures": {
+						"1": {
+							"name": "punctuation.definition.string.lfc"
+						},
+						"2": {
+							"name": "punctuation.definition.string.raw.lfc"
+						}
+					}
+				},
+				{
+					"comment": "characters and bytes",
+					"name": "string.quoted.single.char.lfc",
+					"begin": "(b)?(')",
+					"beginCaptures": {
+						"1": {
+							"name": "string.quoted.byte.raw.lfc"
+						},
+						"2": {
+							"name": "punctuation.definition.char.lfc"
+						}
+					},
+					"end": "'",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.char.lfc"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#escapes"
+						}
+					]
+				}
+			]
+		},
+		"lvariables": {
+			"patterns": [
+				{
+					"comment": "self",
+					"name": "variable.language.self.lfc",
+					"match": "\\b[Ss]elf\\b"
+				},
+				{
+					"comment": "super",
+					"name": "variable.language.super.lfc",
+					"match": "\\bsuper\\b"
+				}
+			]
+		},
+		"variables": {
+			"patterns": [
+				{
+					"comment": "variables",
+					"name": "variable.other.lfc",
+					"match": "\\b(?<!(?<!\\.)\\.)(?:r#(?!(crate|[Ss]elf|super)))?[a-z0-9_]+\\b"
+				}
+			]
+		}
+	}
+}

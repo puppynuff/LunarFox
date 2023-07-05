@@ -1,0 +1,57 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Lunar Fox",
+	"scopeName": "source.lfc",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		}, {
+			"include": "#comments"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.lfc",
+				"match": "\\b(if|while|for|return)\\b"
+			}, {
+				"comment": "functions",
+				"name" : "keyword.other.function.lfc",
+				"match": "\\b(fn|function)\\b"
+			}, {
+				"comment" : "hexadecimal numbers",
+				"name" : "constant.numeric.hex.lfc",
+				"match": "\\b(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize|int)?\\b"
+			}, {
+				"comment" : "storage keywords",
+				"name": "keyword.other.lfc",
+				"match": "\\b(extern|let|mod|macro)\\b"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.lfc",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.lfc",
+					"match": "\\\\."
+				}
+			]
+		},
+		"comments": {
+			"patterns": [{
+				"comment": "documentation comments",
+				"name": "comment.line.documentation.lfc",
+				"match": "^\\s*///.*"
+			}, {
+				"comment": "line comments",
+				"name": "comment.line.double-dash.lfc",
+				"match": "\\s*//.*"
+			}]
+		}
+	}
+}

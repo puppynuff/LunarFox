@@ -1,0 +1,26 @@
+{
+  "name": "lunar-fox",
+  "displayName": "Lunar Fox",
+  "description": "A rust extension language, that makes it easier for me to program.",
+  "version": "0.1.0",
+  "publisher": "ShiroDev",
+  "engines": {
+    "vscode": "^1.79.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "lfc",
+      "aliases": ["Lunar Fox", "lfc"],
+      "extensions": [".lfc",".lf",".lfr",".lft"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "lfc",
+      "scopeName": "source.lfc",
+      "path": "./syntaxes/lfc.tmLanguage.json"
+    }]
+  }
+}
