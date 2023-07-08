@@ -102,6 +102,13 @@ pub fn transpile(tokens : Vec<String>, filepath : String) {
     let out_text = new_tokens.join(" ");
     let out_path = filepath.replace("lunar_fox_src", "src").replace(".lfc", ".rs");
 
+    let mut dir_path : Vec<&str> = out_path.split("\\").collect();
+    dir_path.remove(dir_path.len() - 1);
+
+    println!("{}", dir_path.join("\\"));
+
+    let _ = std::fs::create_dir_all(dir_path.join("/"));
+
     let mut out_file = std::fs::File::create(out_path).expect("Error creating the file!");
     let _ = out_file.write_all(out_text.as_bytes()).expect("Error writing to file!");
 }
